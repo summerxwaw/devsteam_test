@@ -1,6 +1,3 @@
-/* import shared library */
-@Library('jenkins-shared-library')_
-
 pipeline {
     agent any
     environment {
@@ -64,28 +61,20 @@ pipeline {
         success {
              echo "Success"
              script {
-                      // Telegram send notification with Image
-                      defaultTelegramMessage("${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
-                      // Slack send notification
-                      slackSend message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", color: "good"
+                      telegramSend(message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
             echo "Aborted"
             script {
-                    // Telegram logs post
-                    defaultTelegramMessage("${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_ABORTED ${env.Build_text} $ABORTED_IMAGE", TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
-                    // Slack send notification
-                    slackSend message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_ABORTED ${env.Build_text} $ABORTED_IMAGE", color: "danger"
+                                   telegramSend(message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
                 }
         }
         failure {
             echo "Failure"
             script {
-                    // Telegram logs post
-                    defaultTelegramMessage("${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_FAILED ${env.Build_text} $ERROR_IMAGE", TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
-                    // Slack send notification
-                    slackSend message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_FAILED ${env.Build_text} $ERROR_IMAGE", color: "danger"
+                                          telegramSend(message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
+
                 }
         }
     }
