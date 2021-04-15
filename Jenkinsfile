@@ -58,13 +58,6 @@ pipeline {
                    echo "${env.GIT_COMMIT}"
                    currentBuild.displayName = "${env.PROJECT_NAME}-v${env.PROJECT_VERSION} - Build number: ${env.BUILD_NUMBER}"
                    currentBuild.description = "${env.PROJECT_DESCRIPTION}\n${env.GIT_COMMIT_MSG}"
-                    bitbucketStatusNotify(
-                     buildState: BITBUCKET_STATUS_INPROGRESS,
-                     buildName: currentBuild.displayName,
-                     buildDescription: currentBuild.description,
-                     repoSlug: REPO_SLUG,
-                     commitId: env.GIT_COMMIT
-                    )
                    env.Build_text =
                    "\nProject Name: ${env.PROJECT_NAME}\nProject Version: ${env.PROJECT_VERSION}\nProject Description: ${env.PROJECT_DESCRIPTION}\n\nFlutter Version: $PROJECT_FLUTTER_VERSION\n\nCommit message: ${env.GIT_COMMIT_MSG}$BUILD_PAGE_TEXT$BUILD_LOGS_TEXT";
                }
