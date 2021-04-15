@@ -61,7 +61,7 @@ pipeline {
         success {
              echo "Success"
              script {
-                      telegramSend(message: archiveArtifacts artifacts: "$DEBUG_APK_ROUTE/${env.PROJECT_NAME}-v${env.PROJECT_VERSION}-debug.apk", chatId: TELEGRAM_CHAT_ID)
+                      telegramSend(message: "${env.PROJECT_NAME} ${env.Build_text}", chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
