@@ -61,19 +61,19 @@ pipeline {
         success {
              echo "Success"
              script {
-                      telegramSend(message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
+                      telegramSend(message: 'test', chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
             echo "Aborted"
             script {
-                                   telegramSend(message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
+                     telegramSend(message: 'test', chatId: TELEGRAM_CHAT_ID)
                 }
         }
         failure {
             echo "Failure"
             script {
-                                          telegramSend(message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
+                     telegramSend(message: 'test', chatId: TELEGRAM_CHAT_ID)
 
                 }
         }
