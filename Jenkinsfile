@@ -49,9 +49,6 @@ pipeline {
             }
         }
         stage ('Build Android Release') {
-            when {
-                expression {env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_ALL_BUILDS == "true"}
-            }
             steps {
                 sh "flutter build apk --release"
                 script {
