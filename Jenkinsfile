@@ -132,14 +132,6 @@ pipeline {
     post {
         success {
              echo "Success"
-             bitbucketStatusNotify(
-              buildState: BITBUCKET_STATUS_SUCCESS,
-              buildName: currentBuild.displayName,
-              buildDescription: currentBuild.description,
-              repoSlug: REPO_SLUG,
-              commitId: env.GIT_COMMIT
-             )
-             jiraSendBuildInfo site: JIRA_LINK
              script {
                   if (env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true") {
                       // Telegram send notification with Image
@@ -151,14 +143,6 @@ pipeline {
         }
         aborted {
             echo "Aborted"
-            bitbucketStatusNotify(
-             buildState: BITBUCKET_STATUS_FAILED,
-             buildName: currentBuild.displayName,
-             buildDescription: currentBuild.description,
-             repoSlug: REPO_SLUG,
-             commitId: env.GIT_COMMIT
-            )
-            jiraSendBuildInfo site: JIRA_LINK
             script {
                 if (env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true") {
                     // Telegram logs post
@@ -170,14 +154,6 @@ pipeline {
         }
         failure {
             echo "Failure"
-            bitbucketStatusNotify(
-             buildState: BITBUCKET_STATUS_FAILED,
-             buildName: currentBuild.displayName,
-             buildDescription: currentBuild.description,
-             repoSlug: REPO_SLUG,
-             commitId: env.GIT_COMMIT
-            )
-            jiraSendBuildInfo site: JIRA_LINK
             script {
                 if (env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true") {
                     // Telegram logs post
