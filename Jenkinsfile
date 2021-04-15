@@ -61,7 +61,7 @@ pipeline {
         success {
              echo "Success"
              script {
-                      telegramSend(message: 'https://miro.medium.com/max/668/1*FgdvdzDs64rW-1XJkQ-neA.jpeg', chatId: TELEGRAM_CHAT_ID)
+                      telegramSend(message: 'must be url', chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
