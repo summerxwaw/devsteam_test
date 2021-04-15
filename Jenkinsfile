@@ -61,7 +61,7 @@ pipeline {
         success {
              echo "Success"
              script {
-                      telegramSend(message: SUCCESS_IMAGE, chatId: TELEGRAM_CHAT_ID)
+                      telegramSend(message: env.PROJECT_NAME, chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
