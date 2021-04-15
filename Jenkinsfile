@@ -36,33 +36,6 @@ pipeline {
                 checkout scm
             }
         }
-        stage ('Steps Analysis') {
-            steps {
-               script {
-                   env.FLUTTER_VERSION = sh (script: 'flutter --version', returnStdout: true).trim()
-                   env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
-                   echo "Commit message: ${env.GIT_COMMIT_MSG}"
-                   echo "Flutter version: ${env.FLUTTER_VERSION}"
-                   env.IS_ANDROID_DEBUG_BUILD = stringContains(env.GIT_COMMIT_MSG, DEBUG_BUILD_TOKEN)
-                   env.IS_ANDROID_RELEASE_BUILD = stringContains(env.GIT_COMMIT_MSG, RELEASE_BUILD_TOKEN)
-                   env.IS_IOS_BUILD = stringContains(env.GIT_COMMIT_MSG, IOS_BUILD_TOKEN)
-                   env.IS_ALL_BUILDS = stringContains(env.GIT_COMMIT_MSG, ALL_BUILD_TOKEN)
-                   env.IS_FLUTTER_VERSION_CORRECT = stringContains(env.FLUTTER_VERSION, PROJECT_FLUTTER_VERSION)
-                   echo "Is Flutter version correct: ${env.IS_FLUTTER_VERSION_CORRECT}"
-                   echo "IOS: ${IS_IOS_BUILD}, Android debug: ${env.IS_ANDROID_DEBUG_BUILD}, Android release: ${IS_ANDROID_RELEASE_BUILD}"
-                   def data = readYaml file: "pubspec.yaml"
-                   env.PROJECT_VERSION = data.version
-                   env.PROJECT_NAME = data.name
-                   env.PROJECT_DESCRIPTION = data.description
-                   echo "name: ${env.PROJECT_NAME}, description: ${env.PROJECT_DESCRIPTION}, version: ${env.PROJECT_VERSION}"
-                   echo "${env.GIT_COMMIT}"
-                   currentBuild.displayName = "${env.PROJECT_NAME}-v${env.PROJECT_VERSION} - Build number: ${env.BUILD_NUMBER}"
-                   currentBuild.description = "${env.PROJECT_DESCRIPTION}\n${env.GIT_COMMIT_MSG}"
-                   env.Build_text =
-                   "\nProject Name: ${env.PROJECT_NAME}\nProject Version: ${env.PROJECT_VERSION}\nProject Description: ${env.PROJECT_DESCRIPTION}\n\nFlutter Version: $PROJECT_FLUTTER_VERSION\n\nCommit message: ${env.GIT_COMMIT_MSG}$BUILD_PAGE_TEXT$BUILD_LOGS_TEXT";
-               }
-            }
-        }
         stage ('Build Android Debug') {
             when {
                 expression {env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ALL_BUILDS == "true"}
