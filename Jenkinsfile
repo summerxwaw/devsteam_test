@@ -10,7 +10,7 @@ pipeline {
         IOS_BUILD_TOKEN = " -i";
         ALL_BUILD_TOKEN = " -a";
         // Telegram settings.
-        TELEGRAM_CHAT_ID = "420929421";
+        TELEGRAM_CHAT_ID = "-331920429";
         TELEGRAM_BOT_TOKEN = "1731149363:AAG6K4zj6EoMM4cJQGHX7qPPOKeDQYzDvPs";
         // Routes to .apk files.
         RELEASE_APK_ROUTE = "build/app/outputs/apk/release"
