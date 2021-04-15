@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         REPO_SLUG = "devsteam_test";
-        PROJECT_FLUTTER_VERSION = "1.20.2";
+        PROJECT_FLUTTER_VERSION = "2.0.4";
         // Tokens
         DEBUG_BUILD_TOKEN = " -d";
         RELEASE_BUILD_TOKEN = " -r";
