@@ -63,47 +63,6 @@ pipeline {
                }
             }
         }
-        stage ('Flutter version') {
-            when {
-                expression {(env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true"  || env.IS_ALL_BUILDS == "true") && IS_FLUTTER_VERSION_CORRECT == "false"}
-            }
-            steps {
-                script {
-                    try {
-                        sh 'flutter version $PROJECT_FLUTTER_VERSION'
-                    } catch (error) {
-                        echo "$error"
-                    }
-                }
-            }
-        }
-       stage ('Flutter pub get') {
-            when {
-                expression { env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true"}
-            }
-            steps {
-                sh 'flutter clean && flutter pub get'
-            }
-        }
-        stage ('Flutter Doctor') {
-            when {
-                expression { env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true"}
-            }
-            steps {
-                sh 'flutter doctor'
-            }
-        }
-        stage ('Build IOS Release') {
-            when {
-                expression {env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true"}
-            }
-            steps {
-                sh "curl --location --request POST 'https://api.codemagic.io/builds' \
-                    --header 'Content-Type: application/json' \
-                    --header 'x-auth-token: eXFu75mnUwvXd7tOWNfV4v-GLaz8LmC4U7T-pMN_NvQ' \
-                    --data-raw '{\"appId\": \"5f9be1364758a7856b3988ea\",\"workflowId\": \"5f9be1364758a7856b3988e9\",\"branch\": \"${env.BRANCH_NAME}\"}'"
-            }
-        }
         stage ('Build Android Debug') {
             when {
                 expression {env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ALL_BUILDS == "true"}
