@@ -62,35 +62,29 @@ pipeline {
         success {
              echo "Success"
              script {
-                  if (env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true") {
                       // Telegram send notification with Image
                       defaultTelegramMessage("${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                       // Slack send notification
                       slackSend message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_SUCCESS ${env.Build_text} $SUCCESS_IMAGE", color: "good"
-                  }
-             }
+                }
         }
         aborted {
             echo "Aborted"
             script {
-                if (env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true") {
                     // Telegram logs post
                     defaultTelegramMessage("${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_ABORTED ${env.Build_text} $ABORTED_IMAGE", TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                     // Slack send notification
                     slackSend message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_ABORTED ${env.Build_text} $ABORTED_IMAGE", color: "danger"
                 }
-            }
         }
         failure {
             echo "Failure"
             script {
-                if (env.IS_ANDROID_DEBUG_BUILD == "true" || env.IS_ANDROID_RELEASE_BUILD == "true" || env.IS_IOS_BUILD == "true" || env.IS_ALL_BUILDS == "true") {
                     // Telegram logs post
                     defaultTelegramMessage("${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_FAILED ${env.Build_text} $ERROR_IMAGE", TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                     // Slack send notification
                     slackSend message: "${env.PROJECT_NAME} $BUILD_STATUS_TEXT $STATUS_FAILED ${env.Build_text} $ERROR_IMAGE", color: "danger"
                 }
-            }
         }
     }
 }
