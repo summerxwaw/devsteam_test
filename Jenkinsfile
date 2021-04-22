@@ -15,7 +15,7 @@ pipeline {
         RELEASE_APK_ROUTE = "build/app/outputs/apk/release"
         DEBUG_APK_ROUTE = "build/app/outputs/apk/debug"
         // Routes to images
-        SUCCESS_IMAGE = "https://miro.medium.com/max/668/1*FgdvdzDs64rW-1XJkQ-neA.jpeg"
+        SUCCESS_IMAGE = "https://i0.wp.com/blog.mailon.com.ua/wp-content/uploads/2018/03/jenkins_secret.png"
         ERROR_IMAGE = "https://i.stack.imgur.com/9MxWX.png"
         ABORTED_IMAGE = "https://i0.wp.com/blog.mailon.com.ua/wp-content/uploads/2018/03/jenkins_secret.png"
         BUILD_STATUS_TEXT = "Build: ${env.BUILD_NUMBER} status - "
@@ -61,7 +61,7 @@ pipeline {
         success {
              echo "Success"
              script {
-                      telegramSend(message: "SUCCESSFUL: Job '${env.JOB_NAME} ' Build number: '[${env.BUILD_NUMBER}]' ${env.BUILD_URL}", chatId: TELEGRAM_CHAT_ID)
+                      telegramSend(message: "SUCCESSFUL: Job '${env.JOB_NAME} ' Build number: '[${env.BUILD_NUMBER}]' Build number: ${env.BUILD_URL} $SUCCESS_IMAGE", chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
