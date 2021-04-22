@@ -61,7 +61,7 @@ pipeline {
         success {
              echo "Success"
              script {
-                      telegramSend(message: "SUCCESSFUL: Job '${env.JOB_NAME} ' Build number: '${env.BUILD_NUMBER}' ${env.BUILD_URL} ${SUCCESS_IMAGE}", chatId: TELEGRAM_CHAT_ID)
+                      telegramSend(message: "SUCCESSFUL: Job '${env.JOB_NAME} ' Build number: '[${env.BUILD_NUMBER}]' ${env.BUILD_URL}", chatId: TELEGRAM_CHAT_ID)
                 }
         }
         aborted {
